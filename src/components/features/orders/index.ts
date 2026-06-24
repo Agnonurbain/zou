@@ -1,4 +1,4 @@
 /**
- * Order-specific components for SocialPay CI.
+ * Order-specific components for Zou.
  */
 export {}

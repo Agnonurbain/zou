@@ -1,5 +1,5 @@
 /**
- * Shared UI components for SocialPay CI.
+ * Shared UI components for Zou.
  * Add Header, Sidebar, Footer and other shared widgets here.
  */
 export {}
