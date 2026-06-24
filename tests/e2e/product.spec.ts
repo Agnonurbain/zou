@@ -2,24 +2,11 @@ import { test, expect } from '@playwright/test'
 import path from 'path'
 
 test('create product via dialog (mocked upload)', async ({ page, baseURL }) => {
-  // Intercept fetch calls and return a fake success for POST requests
+  // Provide a global E2E mock for createProduct to bypass server action and Supabase
   await page.addInitScript(() => {
-    // eslint-disable-next-line no-extend-native
-    const _fetch = window.fetch
     // @ts-ignore
-    window.fetch = async (input, init) => {
-      try {
-        const method = init?.method ?? (typeof input === 'string' ? 'GET' : undefined)
-        if (method === 'POST') {
-          return new Response(JSON.stringify({ success: true }), {
-            status: 200,
-            headers: { 'Content-Type': 'application/json' },
-          })
-        }
-      } catch (e) {
-        // fallthrough
-      }
-      return _fetch(input, init)
+    window.__e2eCreateProduct = async (formData) => {
+      return { success: true }
     }
   })
 
