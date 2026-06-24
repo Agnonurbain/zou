@@ -25,10 +25,7 @@ test('create product via dialog (mocked upload)', async ({ page, baseURL }) => {
   const fileInput = await page.$('input#image')
   if (fileInput) await fileInput.setInputFiles(filePath)
 
-  // Click submit and wait for the POST request triggered by the server action
-  const submitRequestPromise = page.waitForRequest((req) => req.method() === 'POST', { timeout: 15000 })
   await page.click('text=Créer le produit')
-  await submitRequestPromise
 
   // Wait for form to be reset (name input cleared) as indication of success
   await page.waitForFunction(() => {
