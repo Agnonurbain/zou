@@ -117,8 +117,9 @@ export default function LoginPage() {
             </CardDescription>
           </CardHeader>
 
-          <CardContent className="space-y-5 px-6 py-8 md:px-8 md:py-10">
-            <div className="grid gap-5">
+          <form onSubmit={handleSubmit(onSubmit)} noValidate className="flex flex-col">
+            <CardContent className="space-y-5 px-6 py-8 md:px-8 md:py-10">
+              <div className="grid gap-5">
               <div className="grid gap-2">
                 <Label htmlFor="email" className="text-base">Email</Label>
                 <Input 
@@ -185,39 +186,39 @@ export default function LoginPage() {
                   </div>
                 </>
               )}
-            </div>
+              </div>
 
-            {serverError && (
-              <p className="text-sm text-destructive bg-destructive/10 rounded px-3 py-2">{serverError}</p>
-            )}
-          </CardContent>
+              {serverError && (
+                <p className="text-sm text-destructive bg-destructive/10 rounded px-3 py-2">{serverError}</p>
+              )}
+            </CardContent>
 
-          <CardFooter className="flex flex-col gap-4 px-6 py-6 md:px-8 md:py-8">
-            <Button 
-              className="w-full h-10 text-base md:h-12 md:text-lg" 
-              type="button" 
-              onClick={handleSubmit(onSubmit)} 
-              disabled={isLoading}
-            >
-              {isLoading ? "Patiente..." : mode === "signin" ? "Se connecter" : "Créer un compte"}
-            </Button>
-
-            <div className="flex flex-wrap items-center justify-between gap-3 text-sm text-slate-400">
-              <span>
-                {mode === "signin" ? "Pas encore de compte ?" : "Tu as déjà un compte ?"}
-              </span>
-              <button
-                type="button"
-                className="text-sm font-medium text-slate-200 underline-offset-4 transition hover:text-white hover:underline"
-                onClick={() => {
-                  setMode(mode === "signin" ? "signup" : "signin")
-                  setServerError(null)
-                }}
+            <CardFooter className="flex flex-col gap-4 px-6 py-6 md:px-8 md:py-8">
+              <Button 
+                className="w-full h-10 text-base md:h-12 md:text-lg" 
+                type="submit" 
+                disabled={isLoading}
               >
-                {mode === "signin" ? "Créer un compte" : "Se connecter"}
-              </button>
-            </div>
-          </CardFooter>
+                {isLoading ? "Patiente..." : mode === "signin" ? "Se connecter" : "Créer un compte"}
+              </Button>
+
+              <div className="flex flex-wrap items-center justify-between gap-3 text-sm text-slate-400">
+                <span>
+                  {mode === "signin" ? "Pas encore de compte ?" : "Tu as déjà un compte ?"}
+                </span>
+                <button
+                  type="button"
+                  className="text-sm font-medium text-slate-200 underline-offset-4 transition hover:text-white hover:underline"
+                  onClick={() => {
+                    setMode(mode === "signin" ? "signup" : "signin")
+                    setServerError(null)
+                  }}
+                >
+                  {mode === "signin" ? "Créer un compte" : "Se connecter"}
+                </button>
+              </div>
+            </CardFooter>
+          </form>
         </Card>
       </div>
     </main>
