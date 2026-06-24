@@ -30,12 +30,12 @@ test('create product via dialog (mocked upload)', async ({ page, baseURL }) => {
   await page.waitForSelector('text=Nouveau Produit', { timeout: 15000 })
   await page.click('text=Nouveau Produit')
 
-  await page.fill('label:has-text("Nom du produit") >> input', 'E2E produit')
-  await page.fill('label:has-text("Prix (FCFA)") >> input', '2500')
-  await page.fill('label:has-text("Stock") >> input', '5')
+  await page.fill('input#name', 'E2E produit')
+  await page.fill('input#price', '2500')
+  await page.fill('input#stock', '5')
 
   const filePath = path.resolve(__dirname, 'fixtures', 'product.png')
-  const fileInput = await page.$('input[type="file"]')
+  const fileInput = await page.$('input#image')
   if (fileInput) await fileInput.setInputFiles(filePath)
 
   await page.click('text=Créer le produit')
