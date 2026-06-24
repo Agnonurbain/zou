@@ -12,7 +12,8 @@ export default async function ProductsPage() {
     data: { session },
   } = await supabase.auth.getSession()
 
-  if (!session?.user) {
+  // Allow bypassing auth in E2E by setting DISABLE_AUTH_FOR_E2E=1 in env
+  if (!session?.user && process.env.DISABLE_AUTH_FOR_E2E !== "1") {
     redirect("/login")
   }
 

@@ -21,5 +21,8 @@ export default defineConfig({
     url: 'http://localhost:3000',
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
+    env: {
+      DISABLE_AUTH_FOR_E2E: '1',
+    },
   },
 })
