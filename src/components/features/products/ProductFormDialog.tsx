@@ -74,7 +74,12 @@ export function ProductFormDialog() {
         formData.append("image", watchedImage[0])
       }
 
-      const result = await createProductAction(formData)
+      // If an E2E test mock is present on window, use it instead of the server action.
+      // This allows tests to bypass server auth and Supabase during CI/dev tests.
+      // @ts-ignore
+      const e2eMock = typeof window !== 'undefined' ? (window as any).__e2eCreateProduct : null
+
+      const result = e2eMock ? await e2eMock(formData) : await createProductAction(formData)
 
       if (!result.success) {
         setServerError(result.error ?? "Impossible de créer le produit.")
