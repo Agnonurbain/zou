@@ -1,5 +1,3 @@
-"use server"
-
 import React from 'react'
 import { ProductFormDialog } from '@/components/features/products/ProductFormDialog'
 import { ProductActionsMenu } from '@/components/features/products/ProductActionsMenu'
