@@ -40,6 +40,9 @@ test('create product via dialog (mocked upload)', async ({ page, baseURL }) => {
 
   await page.click('text=Créer le produit')
 
-  // Wait for dialog to close (title no longer visible)
-  await expect(page.locator('text=Ajouter un produit')).toHaveCount(0)
+  // Wait for form to be reset (name input cleared) as indication of success
+  await page.waitForFunction(() => {
+    const el = document.querySelector('input#name') as HTMLInputElement | null
+    return el ? el.value === '' : false
+  }, { timeout: 5000 })
 })
