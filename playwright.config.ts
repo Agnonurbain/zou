@@ -19,7 +19,8 @@ export default defineConfig({
   webServer: {
     command: 'npm run dev',
     url: 'http://localhost:3000',
-    reuseExistingServer: !process.env.CI,
+    // Always start a fresh dev server so the E2E env is applied reliably
+    reuseExistingServer: false,
     timeout: 120 * 1000,
     env: {
       DISABLE_AUTH_FOR_E2E: '1',
