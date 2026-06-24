@@ -18,7 +18,7 @@ export async function getSellerProducts(sellerId: string): Promise<{
 
 export async function createProduct(
   sellerId: string,
-  data: ProductInsert
+  data: Omit<ProductInsert, "seller_id">
 ): Promise<{
   data: ProductsRow | null
   error: PostgrestError | null
@@ -56,4 +56,23 @@ export async function updateProduct(
     .single()
 
   return { data: updatedProduct, error }
+}
+
+export async function deleteProduct(
+  productId: string,
+  sellerId: string
+): Promise<{
+  data: ProductsRow | null
+  error: PostgrestError | null
+}> {
+  const supabase = await createSupabaseServer()
+  const products = supabase.from("products" as const) as any
+  const { data: deletedProduct, error } = await products
+    .delete()
+    .eq("id", productId)
+    .eq("seller_id", sellerId)
+    .select()
+    .single()
+
+  return { data: deletedProduct, error }
 }
