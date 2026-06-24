@@ -23,8 +23,11 @@ test('create product via dialog (mocked upload)', async ({ page, baseURL }) => {
     }
   })
 
-  await page.goto(`${baseURL}/dashboard/products`)
+  // Use the dev-only test route which does not require auth
+  await page.goto(`${baseURL}/test/e2e/products`, { waitUntil: 'networkidle' })
 
+  // Wait for the trigger to appear (allow extra time for dev server)
+  await page.waitForSelector('text=Nouveau Produit', { timeout: 15000 })
   await page.click('text=Nouveau Produit')
 
   await page.fill('label:has-text("Nom du produit") >> input', 'E2E produit')
