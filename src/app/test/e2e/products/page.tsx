@@ -10,7 +10,7 @@ export default function TestProductsPage() {
     return null
   }
 
-  const products = []
+  const products: any[] = []
 
   return (
     <div className="space-y-6 relative pb-28">

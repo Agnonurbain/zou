@@ -17,7 +17,11 @@ export default async function ProductsPage() {
     redirect("/login")
   }
 
-  const sellerId = session.user.id
+  const sellerId = session?.user?.id
+  if (!sellerId) {
+    redirect("/login")
+  }
+
   const { data: products, error } = await getSellerProducts(sellerId)
 
   if (error) {
